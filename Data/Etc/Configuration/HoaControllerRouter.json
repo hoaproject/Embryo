@@ -1,0 +1,15 @@
+{
+    /**
+     * Keywords.
+     */
+    "keywords": {},
+
+    /**
+     * Parameters.
+     */
+    "parameters": {
+        "base"    : "/",
+        "rewrited": false,
+        "rules"   : []
+    }
+}
