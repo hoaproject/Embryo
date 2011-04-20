@@ -51,9 +51,10 @@ require_once dirname(dirname(dirname(__FILE__))) . '/Framework/Core/Core.php';
 /**
  * Add some components the the hoa://'s protocol.
  */
-\Hoa\Core::getInstance()->setParameter(
-    'protocol.Data/Bin', '(:%protocol.Data:)' . 'Bin' . DS
-);
+\Hoa\Core::getInstance()->setParameters(array(
+    'protocol.Data'     => dirname(__DIR__) . DS,
+    'protocol.Data/Bin' => '(:%protocol.Data:)' . 'Bin' . DS
+));
 
 /**
  * \Hoa\Console
