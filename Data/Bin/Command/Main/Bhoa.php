@@ -276,7 +276,7 @@ class BhoaCommand extends \Hoa\Console\Command\Generic {
                     }
                     else {
 
-                        $content = '/' . $url . "\n" .
+                        $content = $request->getHost() . '/' . $url . "\n" .
                                    str_repeat('*', strlen($url) + 1) . "\n\n";
                         $finder  = new \Hoa\File\Finder($target);
 
@@ -354,6 +354,27 @@ class BhoaCommand extends \Hoa\Console\Command\Generic {
 
                 $script_filename = $_root . DS . 'index.php';
                 $script_name     = DS . 'index.php';
+            }
+
+            if(   !isset($script_filename)
+               || false === file_exists($script_filename)) {
+
+                $content = '404 Not Found :-\'(';
+                $server->writeAll(
+                    'HTTP/1.1 404 Not Found' . "\r\n" .
+                    'Date: ' . date('r') . "\r\n" .
+                    'Server: Hoa+Bhoa/0.1' . "\r\n" .
+                    'Content-Type: text/plain' . "\r\n" .
+                    'Content-Length: ' . strlen($content) . "\r\n\r\n" .
+                    $content
+                );
+
+                $this->log("\r" . '✔ '. $methodAsString . ' /' . $url);
+
+                $this->log(null);
+                $this->log("\n" . 'Waiting for new connection…');
+
+                continue;
             }
 
             switch($method) {
