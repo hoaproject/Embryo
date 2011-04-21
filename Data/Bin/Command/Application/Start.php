@@ -113,6 +113,9 @@ class StartCommand extends \Hoa\Console\Command\Generic {
 
         $index       = 'hoa://Application/Public/index.php';
         $indexStatus = true;
+        $core        = \Hoa\Core::getInstance()
+                       ->getFormattedParameter('root.framework') . DS . 'Core' .
+                       DS . 'Core.php';
 
         if(false === file_exists($index)) {
 
@@ -121,7 +124,7 @@ class StartCommand extends \Hoa\Console\Command\Generic {
             );
             $indexStatus = false !== $bootstrap->writeAll(
                 '<?php' . "\n\n" .
-                'require __DIR__ . \'/../../Framework/Core/Core.php\';' . "\n\n" .
+                'require \'' . str_replace('\'', '\\\'', $core). '\';' . "\n\n" .
                 'echo \'Hello you! I\\\'m Hoa and I\\\'m installed :-).\' . "\n";'
             );
         }
