@@ -257,7 +257,7 @@ class BhoaCommand extends \Hoa\Console\Command\Generic {
 
             if(true === file_exists($target)) {
 
-                $file = new \Hoa\File\Read($target);
+                $file = new \Hoa\File\Undefined($target);
 
                 // Listing.
                 if(true === $file->isDirectory()) {
@@ -313,6 +313,8 @@ class BhoaCommand extends \Hoa\Console\Command\Generic {
                         continue;
                     }
                 }
+
+                $file = new \Hoa\File\Read($target);
 
                 // Static.
                 if('php' !== $file->getExtension()) {
