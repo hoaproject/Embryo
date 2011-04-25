@@ -9,7 +9,7 @@
      */
     "parameters": {
         "base"    : "/",
-        "rewrited": false,
+        "rewrited": true,
         "rules"   : []
     }
 }

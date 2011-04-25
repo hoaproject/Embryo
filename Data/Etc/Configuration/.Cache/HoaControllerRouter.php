@@ -11,7 +11,7 @@ return array (
   'parameters' => 
   array (
     'base' => '/',
-    'rewrited' => false,
+    'rewrited' => true,
     'rules' => 
     array (
     ),
