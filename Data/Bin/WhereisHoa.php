@@ -114,10 +114,10 @@ if(false === $go) {
     exit;
 }
 
-$whereis = cin("\n" . 'A very simple question: where is Hoa so (Core.php)?' .
-               "\n" . '> ');
+$whereis = cin("\n" . 'A very simple question: where is Hoa so?' .
+               "\n" . '> ') . DS . 'Core' . DS . 'Core.php';
 
-cout("\n");
+cout("\n" . 'Assuming ' . $whereis . '.' . "\n\n");
 
 check(
     'Check if the given file exists' . "\n",
