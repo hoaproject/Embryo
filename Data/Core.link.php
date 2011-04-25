@@ -41,31 +41,8 @@ namespace {
  * @copyright  Copyright © 2007-2011 Ivan Enderlin.
  */
 
-/**
- * \Hoa\Core
- */
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'Core.link.php';
-
-/**
- * Add some components the the hoa://'s protocol.
- */
-\Hoa\Core::getInstance()->setParameters(array(
-    'root.data'         => dirname(__DIR__),
-    'root.application'  => dirname(dirname(__DIR__)) . DS . 'Application',
-    'protocol.Data/Bin' => '(:%protocol.Data:)' . 'Bin' . DS
-));
-
-/**
- * \Hoa\Console
- */
-from('Hoa')
--> import('Console.~');
-
-/**
- * Here we go …
- */
-\Hoa\Console::getInstance()
-    ->importStyle('sheet')
-    ->dispatch();
+#hoa
+require_once '/var/lib/hoa/Core/Core.php';
+#!hoa
 
 }

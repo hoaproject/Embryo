@@ -101,7 +101,7 @@ _define('DS',     DIRECTORY_SEPARATOR);
 cout('** Where is Hoa **' . "\n\n");
 cout('Ready to redefine the path to the framework?' . "\n");
 cout('We need to redefine it in:' . "\n" .
-     '  • the “hoa” binary;' . "\n" .
+     '  • the Core.link.php file;' . "\n" .
      '  • the configuration file;' . "\n" .
      '  • the configuration cache file.' . "\n");
 
@@ -131,8 +131,8 @@ check(
     defined('HOA')
 );
 check(
-    'Check if “hoa” binary is accessible' . "\n",
-    file_exists($bin = __DIR__ . DS . 'Hoa.php')
+    'Check if Core.link.php is accessible' . "\n",
+    file_exists($link = dirname(__DIR__) . DS . 'Core.link.php')
 );
 check(
     'Check if the configuration file is accessible' . "\n",
@@ -158,8 +158,8 @@ if(false === $goo) {
 cout("\n");
 
 check(
-    'Backup for “hoa” binary (Hoa.php.orig)' . "\n",
-    copy($bin, $bin . '.orig')
+    'Backup for the Core.link.php file (Core.link.php.orig)' . "\n",
+    copy($link, $link . '.orig')
 );
 check(
     'Backup for the configuration file (HoaCoreCore.json.orig)' . "\n",
@@ -172,23 +172,23 @@ check(
 
 cout("\n");
 
-$bini = file_get_contents($bin);
-$shoa = '#hoa' . "\n" . 'require_once ([^;]+);' . "\n" . '#!hoa';
+$linki = file_get_contents($link);
+$shoa  = '#hoa' . "\n" . 'require_once ([^;]+);' . "\n" . '#!hoa';
 check(
-    'Check if “hoa” binary is not corrupted' . "\n",
-    0 !== preg_match('`' . $shoa . '`s', $bini)
+    'Check if Core.link.php is not corrupted' . "\n",
+    0 !== preg_match('`' . $shoa . '`s', $linki)
 );
 check(
-    'Redefine “hoa” binary.' . "\n",
-    ($bino = preg_replace(
+    'Redefine the Core.link.php.' . "\n",
+    ($linko = preg_replace(
         '`' . $shoa . '`s',
         '#hoa' . "\n" .
         'require_once \'' . str_replace('\'', '\\\'', $whereis) . '\';' . "\n" .
         '#!hoa',
-        $bini,
+        $linki,
         1
     )) &&
-    file_put_contents($bin, $bino)
+    file_put_contents($link, $linko)
 );
 
 $jsoni = file_get_contents($json);
