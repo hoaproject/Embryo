@@ -12,7 +12,7 @@ return array (
   'parameters' => 
   array (
     'root' => '(:root.ofFrameworkDirectory:)',
-    'root.framework' => '/var/lib/hoa',
+    'root.framework' => '(:%root:)',
     'root.data' => '(:%root:h:)/Data',
     'root.application' => '(:%root:h:)/Application',
     'framework.core' => '(:%root.framework:)/Core',
