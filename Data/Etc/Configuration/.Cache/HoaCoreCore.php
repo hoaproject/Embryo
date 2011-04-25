@@ -14,7 +14,7 @@ return array (
     'root' => '(:root.ofFrameworkDirectory:)',
     'root.framework' => '(:%root:)',
     'root.data' => '(:%root:h:)/Data',
-    'root.application' => '(:%root:h:)/Application',
+    'root.application' => '(:%root.data:)/../Application',
     'framework.core' => '(:%root.framework:)/Core',
     'framework.library' => '(:%root.framework:)/Library',
     'framework.module' => '(:%root.framework:)/Module',
