@@ -41,8 +41,9 @@ namespace {
  * @copyright  Copyright © 2007-2011 Ivan Enderlin.
  */
 
-#hoa
-require_once '/var/lib/hoa/Core/Core.php';
-#!hoa
+// If your system does not support symlink:
+require_once '/usr/local/lib/hoa/Core/Core.php';
+
+// Else, this file will be deleted and replaced by a symlink.
 
 }
