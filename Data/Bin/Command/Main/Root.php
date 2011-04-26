@@ -133,7 +133,7 @@ class RootCommand extends \Hoa\Console\Command\Generic {
         }
 
         if(true === $check)
-            if($info == getcwd())
+            if(realpath($info) == getcwd())
                 if(true === $verbose)
                     cout('You are at the right place!');
                 else
