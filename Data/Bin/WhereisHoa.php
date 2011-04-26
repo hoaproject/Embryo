@@ -172,24 +172,26 @@ check(
 
 cout("\n");
 
-$linki = file_get_contents($link);
-$shoa  = '#hoa' . "\n" . 'require_once ([^;]+);' . "\n" . '#!hoa';
 check(
-    'Check if Core.link.php is not corrupted' . "\n",
-    0 !== preg_match('`' . $shoa . '`s', $linki)
+    'Unset Core.link.php.' . "\n",
+    unlink($link)
 );
-check(
-    'Redefine the Core.link.php.' . "\n",
-    ($linko = preg_replace(
-        '`' . $shoa . '`s',
-        '#hoa' . "\n" .
-        'require_once \'' . str_replace('\'', '\\\'', $whereis) . '\';' . "\n" .
-        '#!hoa',
-        $linki,
-        1
-    )) &&
-    file_put_contents($link, $linko)
-);
+
+if(true === function_exists('symlink'))
+    check(
+        'Redefine the Core.link.php symbolic link.' . "\n",
+        symlink($whereis, $link)
+    );
+else
+    check(
+        'Redefine the Core.link.php file' . "\n",
+        file_put_contents(
+            $link,
+            implode('', array_slice(file(__FILE__), 0, 42)) . "\n" .
+            'require_once \'' . str_replace('\'', '\\\'', $whereis) . '\';' .
+            "\n\n" . '}'
+        )
+    );
 
 $jsoni = file_get_contents($json);
 $jhoa  = '("root.framework"\s*:\s*)"(.*?)(?<!\\\)"';
