@@ -120,6 +120,7 @@ class BhoaCommand extends \Hoa\Console\Command\Generic {
         array('root',           parent::REQUIRED_ARGUMENT, 'r'),
         array('fastcgi-domain', parent::REQUIRED_ARGUMENT, 'D'),
         array('fastcgi-port',   parent::REQUIRED_ARGUMENT, 'P'),
+        array('print-buffer',   parent::NO_ARGUMENT,       'b'),
         array('help',           parent::NO_ARGUMENT,       'h'),
         array('help',           parent::NO_ARGUMENT,       '?')
     );
@@ -140,6 +141,7 @@ class BhoaCommand extends \Hoa\Console\Command\Generic {
         $fport   = 9000;
         $root    = '.';
         $php     = $this->getParameter('command.php');
+        $pbuffer = false;
 
         while(false !== $c = parent::getOption($v)) {
 
@@ -163,6 +165,10 @@ class BhoaCommand extends \Hoa\Console\Command\Generic {
 
                 case 'r':
                     $root = $v;
+                  break;
+
+                case 'b':
+                    $pbuffer = !$pbuffer;
                   break;
 
                 case 'h':
@@ -232,6 +238,14 @@ class BhoaCommand extends \Hoa\Console\Command\Generic {
                 $server->disconnect();
 
                 continue;
+            }
+
+            if(true === $pbuffer) {
+
+                $this->log("\r");
+                $this->log(null);
+                $this->log("\r");
+                var_dump($buffer);
             }
 
             $request->parse($buffer);
@@ -500,6 +514,7 @@ class BhoaCommand extends \Hoa\Console\Command\Generic {
             'D'    => 'PHP FastCGI or PHP-FPM domain name (default: localhost).',
             'P'    => 'PHP FastCGI or PHP-FPM port number (default: 9000).',
             'r'    => 'Public/document root.',
+            'b'    => 'Print buffers (headers & content).',
             'help' => 'This help.'
         )));
         cout('Bhoa needs PHP FastCGI to communicate with PHP.' . "\n" .
