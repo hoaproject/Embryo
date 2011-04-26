@@ -124,8 +124,10 @@ class StartCommand extends \Hoa\Console\Command\Generic {
             );
             $indexStatus = false !== $bootstrap->writeAll(
                 '<?php' . "\n\n" .
-                'require \'' . str_replace('\'', '\\\'', $core). '\';' . "\n\n" .
-                'echo \'Hello you! I\\\'m Hoa and I\\\'m installed :-).\' . "\n";'
+                'require dirname(dirname(__DIR__)) .' . "\n" .
+                '        DIRECTORY_SEPARATOR . \'Data\' .' . "\n" .
+                '        DIRECTORY_SEPARATOR . \'Core.link.php\';' . "\n\n" .
+                'echo \'Hello you! I\\\'m your first Hoa-based application :-).\' . "\n";'
             );
         }
 
