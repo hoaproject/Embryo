@@ -230,7 +230,7 @@ check(
 
 cout("\n");
 cout('\o/' . "\n");
-cout('Path to framework is refined!' . "\n");
+cout('Path to Hoa is redefined!' . "\n");
 cout('(You may delete backups (*.orig) after ' .
      'beeing sure that all works fine).' . "\n");
 
