@@ -51,7 +51,6 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'Core.link.php';
  */
 \Hoa\Core::getInstance()->setParameters(array(
     'root.data'         => dirname(__DIR__),
-    'root.application'  => dirname(dirname(__DIR__)) . DS . 'Application',
     'protocol.Data/Bin' => '(:%protocol.Data:)' . 'Bin' . DS
 ));
 
