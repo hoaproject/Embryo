@@ -407,6 +407,14 @@ class BhoaCommand extends \Hoa\Console\Command\Generic {
 
                 case \Hoa\Http\Request::METHOD_POST:
                     $data = $request->getContent();
+
+                    switch(strtolower($request->getContentType())) {
+
+                        case 'application/json':
+                            $data = http_build_query(@json_decode($data) ?: array());
+                          break;
+                    }
+
                     $headers = array_merge($_headers, array(
                         'REQUEST_METHOD'  => 'POST',
                         'REQUEST_URI'     => DS . $url,
