@@ -132,7 +132,8 @@ check(
 );
 check(
     'Check if Core.link.php is accessible' . "\n",
-    file_exists($link = dirname(__DIR__) . DS . 'Core.link.php')
+       file_exists($link = dirname(__DIR__) . DS . 'Core.link.php')
+    || is_link($link)
 );
 check(
     'Check if the configuration file is accessible' . "\n",
@@ -159,7 +160,7 @@ cout("\n");
 
 check(
     'Backup for the Core.link.php file (Core.link.php.orig)' . "\n",
-    copy($link, $link . '.orig')
+    (!is_link($link) && copy($link, $link . '.orig')) || true
 );
 check(
     'Backup for the configuration file (HoaCoreCore.json.orig)' . "\n",
