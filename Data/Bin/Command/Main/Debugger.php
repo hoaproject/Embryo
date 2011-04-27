@@ -171,7 +171,7 @@ class DebuggerCommand extends \Hoa\Console\Command\Generic {
 
             cout(
                 "\n\n" . '** Exception **' . "\n" .
-                $e->raise()
+                $e->raise(true)
             );
             cout('** Buffer **' . "\n" . $buffer . "\n");
         }
@@ -442,7 +442,10 @@ class DebuggerCommand extends \Hoa\Console\Command\Generic {
 
     public static function autoload ( $classname ) {
 
-        from(substr($classname, 0, $pos = strpos($classname, '\\')))
+        if(false === $pos = strpos($classname, '\\'))
+            return;
+
+        from(substr($classname, 0, $pos))
             ->import(str_replace(
                 '\\',
                 '.',
