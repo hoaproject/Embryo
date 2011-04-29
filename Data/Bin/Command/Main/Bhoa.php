@@ -207,9 +207,7 @@ class BhoaCommand extends \Hoa\Console\Command\Generic {
             'SERVER_ADDR'       => $server->getSocket()->getPort(),
             'SERVER_PORT'       => 8888,
             'SERVER_SIGNATURE'  => 'Hoa+Bhoa/0.1 \o/, PHP/' . phpversion(),
-            'HTTP_HOST'         => $server->getSocket()->getAddress() . ':' .
-                                   $server->getSocket()->getPort(),
-            'HTTP_USER_AGENT'   => 'Mozilla Firefox',
+            'HTTP_HOST'         => null,
 
             'REQUEST_METHOD'    => null,
             'REQUEST_URI'       => null,
@@ -254,6 +252,7 @@ class BhoaCommand extends \Hoa\Console\Command\Generic {
             $url            = $request->getURL();
             $ttime          = time();
             $smartPrint     = "\r";
+            $_headers['HTTP_HOST'] = $request->getHost();
 
             if($ttime - $time >= 2) {
 
