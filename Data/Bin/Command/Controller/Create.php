@@ -95,6 +95,8 @@ class CreateCommand extends \Hoa\Console\Command\Generic {
      */
     public function main ( ) {
 
+        exit;
+
         $as = 'synchronous';
 
         while(false !== $c = parent::getOption($v)) {
