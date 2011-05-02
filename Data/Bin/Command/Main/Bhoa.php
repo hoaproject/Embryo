@@ -140,7 +140,6 @@ class BhoaCommand extends \Hoa\Console\Command\Generic {
         $fdomain = 'localhost';
         $fport   = 9000;
         $root    = '.';
-        $php     = $this->getParameter('command.php');
         $pbuffer = false;
 
         while(false !== $c = parent::getOption($v)) {
