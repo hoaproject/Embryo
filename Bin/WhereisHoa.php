@@ -80,12 +80,16 @@ function cout ( $out ) {
     return fwrite(STDOUT, $out);
 }
 
-function check ( $out, $test ) {
+function check ( $out, $test, $die = true ) {
 
     if(false === $test) {
 
         cout('✖  ' . $out);
-        exit;
+
+        if(true === $die)
+            exit;
+        else
+            return;
     }
 
     cout('✔  ' . $out);
@@ -178,12 +182,23 @@ check(
     unlink($link)
 );
 
-if(true === function_exists('symlink'))
+try {
+
+    if(true === function_exists('symlink'))
+        throw new Hoa\Core\Exception\Idle('** goto-like **');
+
     check(
         'Redefine the Core.link.php symbolic link.' . "\n",
         symlink($whereis, $link)
     );
-else
+}
+catch ( Hoa\Core\Exception\Idle $e ) {
+
+    check(
+        'Redefine the Core.link.php symbolic link.' . "\n",
+        false,
+        false
+    );
     check(
         'Redefine the Core.link.php file' . "\n",
         file_put_contents(
@@ -193,6 +208,8 @@ else
             "\n\n" . '}'
         )
     );
+}
+
 
 $jsoni = file_get_contents($json);
 $jhoa  = '("root.framework"\s*:\s*)"(.*?)(?<!\\\)"';
