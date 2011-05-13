@@ -54,9 +54,9 @@ from('Hoa')
 -> import('Socket.Internet.DomainName')
 
 /**
- * \Hoa\FastCgi\Client
+ * \Hoa\FastCgi\Responder
  */
--> import('FastCgi.Client')
+-> import('FastCgi.Responder')
 
 /**
  * \Hoa\File\Read
@@ -184,7 +184,7 @@ class BhoaCommand extends \Hoa\Console\Command\Generic {
                             'tcp'
                         )
                     );
-        $client   = new \Hoa\FastCgi\Client(
+        $client   = new \Hoa\FastCgi\Responder(
                         new \Hoa\Socket\Connection\Client(
                             new \Hoa\Socket\Internet\DomainName(
                                 $fdomain,
