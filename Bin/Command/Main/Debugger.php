@@ -439,23 +439,6 @@ class DebuggerCommand extends \Hoa\Console\Command\Generic {
             \Hoa\Console\Core\Io::NO_NEW_LINE
         );
     }
-
-    public static function autoload ( $classname ) {
-
-        if(false === $pos = strpos($classname, '\\'))
-            return;
-
-        from(substr($classname, 0, $pos))
-            ->import(str_replace(
-                '\\',
-                '.',
-                substr($classname, $pos + 1)
-            ), true);
-
-        return;
-    }
 }
-
-spl_autoload_register('\DebuggerCommand::autoload');
 
 }
