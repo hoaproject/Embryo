@@ -35,6 +35,7 @@
         "protocol.Data/Variable/Database": "(:%protocol.Data/Variable:)Database/",
         "protocol.Data/Variable/Log"     : "(:%protocol.Data/Variable:)Log/",
         "protocol.Data/Variable/Private" : "(:%protocol.Data/Variable:)Private/",
+        "protocol.Data/Variable/Run"     : "(:%protocol.Data/Variable:)Run/",
         "protocol.Data/Variable/Test"    : "(:%protocol.Data/Variable:)Test/",
         "protocol.Data"                  : "(:%root.data:)/",
         "protocol.Library"               : "(:%framework.library:)/",

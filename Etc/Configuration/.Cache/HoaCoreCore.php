@@ -33,6 +33,7 @@ return array (
     'protocol.Data/Variable/Database' => '(:%protocol.Data/Variable:)Database/',
     'protocol.Data/Variable/Log' => '(:%protocol.Data/Variable:)Log/',
     'protocol.Data/Variable/Private' => '(:%protocol.Data/Variable:)Private/',
+    'protocol.Data/Variable/Run' => '(:%protocol.Data/Variable:)Run/',
     'protocol.Data/Variable/Test' => '(:%protocol.Data/Variable:)Test/',
     'protocol.Library' => '(:%framework.library:)/',
     'namespace.prefix.Hoa' => '(:%framework.library:)',
