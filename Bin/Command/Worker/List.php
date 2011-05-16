@@ -148,7 +148,8 @@ class ListCommand extends \Hoa\Console\Command\Generic {
 
         foreach($outm as $m) {
 
-            $outmm  = str_pad($m['id'], $max_id) . ' ';
+            $outmm  = str_pad($m['id'], $max_id) . '  ';
+            $max    = (int) (($m['memory_peak'] * 39) / $max_peak);
             $peak   = (int) (($m['memory_allocated_peak'] * 40) / $max_peak);
             $memory = (int) (($m['memory_allocated'] * 40) / $max_peak);
 
@@ -158,11 +159,15 @@ class ListCommand extends \Hoa\Console\Command\Generic {
             for(; $i < $peak; ++$i)
                 $outmm .= parent::stylize('|', 'info');
 
-            for(++$i; $i < 38; ++$i)
+            for(; $i < $max; ++$i)
                 $outmm .= ' ';
 
             $outmm .= parent::stylize('|', 'nosuccess');
-            $outmm .= ' ' .
+
+            for(++$i; $i < 40; ++$i)
+                $outmm .= ' ';
+
+            $outmm .= '  ' .
                       parent::stylize(
                         number_format($m['memory_allocated'] / 1024) . 'Kb',
                         'success'
@@ -198,6 +203,9 @@ class ListCommand extends \Hoa\Console\Command\Generic {
         cout(parent::makeUsageOptionsList(array(
             'help' => 'This help.'
         )));
+        cout('Legend: ' . parent::stylize('allocated', 'success') . ', ' .
+             parent::stylize('allocated peak', 'info') . ', ' .
+             parent::stylize('peak', 'nosuccess') . '.');
 
         return HC_SUCCESS;
     }
