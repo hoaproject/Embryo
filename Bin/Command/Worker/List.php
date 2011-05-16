@@ -39,10 +39,9 @@ namespace {
 from('Hoa')
 
 /**
- * \Hoa\Worker\Run
+ * \Hoa\Worker\Shared
  */
--> import('Worker.Run');
-
+-> import('Worker.Shared');
 
 /**
  * Class ListCommand.
@@ -99,29 +98,89 @@ class ListCommand extends \Hoa\Console\Command\Generic {
                   break;
             }
 
-        $run = resolve('hoa://Data/Variable/Run/');
-        $out = array(array('ID', 'Socket', 'Uptime'));
-        $now = new \DateTime();
-        $i   = 0;
+        $run  = resolve('hoa://Data/Variable/Run/');
+        $outi = array(array('ID', 'PID', 'Socket', 'Uptime', 'Messages', 'Last'));
+        $outm = array();
+        $now  = new \DateTime();
+        $t    = 0;
 
         cout(parent::stylize('Shared worker informations', 'info'));
         cout();
 
         foreach(glob($run . DS . '*.wid') as $wid) {
 
-            $wid   = \Hoa\Worker\Run::get(substr(basename($wid), 0, -4));
-            $date  = new \DateTime();
-            $date->setTimestamp((int) $wid['start']);
-            $out[] = array(
-                $wid['id'],
-                $wid['socket']->__toString(),
-                $date->diff($now)->format('%ad%H:%I:%S')
+            $worker = new \Hoa\Worker\Shared(substr(basename($wid), 0, -4));
+            $infos  = $worker->getInformations();
+            $uptime = new \DateTime();
+            $uptime->setTimestamp((int) $infos['start']);
+            $last   = new \DateTime();
+            $last->setTimestamp((int) $infos['last_message']);
+
+            $outi[]  = array(
+                $infos['id'],
+                $infos['pid'],
+                $infos['socket']->__toString(),
+                $uptime->diff($now)->format('%ad%H:%I:%S'),
+                $infos['messages'],
+                0 === $infos['last_message']
+                    ? '-'
+                    : $last->diff($now)->format('%ad%H:%I:%S')
             );
-            ++$i;
+
+            $outm[] = $infos;
+
+            ++$t;
         }
 
-        cout(parent::columnize($out, 0, 2, '|'));
-        cout($i . ' shared worker' . ($i > 1 ? 's are' : ' is') . ' running.');
+        cout(parent::columnize($outi, 0, 1, '|'));
+
+        $max_id   = 0;
+        $max_peak = 0;
+
+        foreach($outm as $m) {
+
+            $max_id < strlen($m['id'])
+            and $max_id = strlen($m['id']);
+
+            $max_peak < $m['memory_peak']
+            and $max_peak = $m['memory_peak'];
+        }
+
+        foreach($outm as $m) {
+
+            $outmm  = str_pad($m['id'], $max_id) . ' ';
+            $peak   = (int) (($m['memory_allocated_peak'] * 40) / $max_peak);
+            $memory = (int) (($m['memory_allocated'] * 40) / $max_peak);
+
+            for($i = 0; $i < $memory - 1; ++$i)
+                $outmm .= parent::stylize('|', 'success');
+
+            for(; $i < $peak; ++$i)
+                $outmm .= parent::stylize('|', 'info');
+
+            for(++$i; $i < 38; ++$i)
+                $outmm .= ' ';
+
+            $outmm .= parent::stylize('|', 'nosuccess');
+            $outmm .= ' ' .
+                      parent::stylize(
+                        number_format($m['memory_allocated'] / 1024) . 'Kb',
+                        'success'
+                      ) . ' ' .
+                      parent::stylize(
+                        number_format($m['memory_allocated_peak'] / 1024) . 'Kb',
+                        'info'
+                      ) . ' ' .
+                      parent::stylize(
+                        number_format($m['memory_peak'] / 1024) . 'Kb',
+                        'nosuccess'
+                      );
+
+            echo $outmm . "\n";
+        }
+
+        cout();
+        cout($t . ' shared worker' . ($t > 1 ? 's are' : ' is') . ' running.');
 
         return HC_SUCCESS;
     }
