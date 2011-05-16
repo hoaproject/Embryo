@@ -52,7 +52,7 @@ from('Hoa')
 /**
  * Class StartCommand.
  *
- *
+ * Start a worker.
  *
  * @author     Ivan Enderlin <ivan.enderlin@hoa-project.net>
  * @copyright  Copyright © 2007-2011 Ivan Enderlin.
@@ -124,7 +124,7 @@ class StartCommand extends \Hoa\Console\Command\Generic {
         if(null === $workerPath)
             return $this->usage();
 
-        \Hoa\Worker\Backend\Shared::start(
+        $output = \Hoa\Worker\Backend\Shared::start(
             new \Hoa\Socket\Internet\DomainName(
                 $domain,
                 $port,
@@ -132,6 +132,8 @@ class StartCommand extends \Hoa\Console\Command\Generic {
             ),
             $workerPath
         );
+
+        cout($output);
 
         return HC_SUCCESS;
     }

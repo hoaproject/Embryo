@@ -43,11 +43,10 @@ from('Hoa')
  */
 -> import('Worker.Backend.Shared');
 
-
 /**
  * Class StopCommand.
  *
- *
+ * Stop worker.
  *
  * @author     Ivan Enderlin <ivan.enderlin@hoa-project.net>
  * @copyright  Copyright © 2007-2011 Ivan Enderlin.
