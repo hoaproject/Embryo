@@ -202,14 +202,16 @@ class BhoaCommand extends \Hoa\Console\Command\Generic {
 
             'SERVER_SOFTWARE'   => 'Hoa+Bhoa/0.1',
             'SERVER_PROTOCOL'   => 'HTTP/1.1',
-            'SERVER_NAME'       => $server->getSocket()->getAddress(),
-            'SERVER_ADDR'       => $server->getSocket()->getPort(),
-            'SERVER_PORT'       => 8888,
+            'SERVER_NAME'       => $server->getSocket()->getAddress() . ':' .
+                                   $server->getSocket()->getPort(),
+            'SERVER_ADDR'       => $server->getSocket()->getAddress(),
+            'SERVER_PORT'       => $server->getSocket()->getPort(),
             'SERVER_SIGNATURE'  => 'Hoa+Bhoa/0.1 \o/, PHP/' . phpversion(),
             'HTTP_HOST'         => null,
 
             'REQUEST_METHOD'    => null,
             'REQUEST_URI'       => null,
+            'REQUEST_TIME'      => 0,
 
             'SCRIPT_FILENAME'   => null,
             'SCRIPT_NAME'       => null
@@ -398,6 +400,7 @@ class BhoaCommand extends \Hoa\Console\Command\Generic {
                     $headers = array_merge($_headers, array(
                         'REQUEST_METHOD'  => 'GET',
                         'REQUEST_URI'     => DS . $url,
+                        'REQUEST_TIME'    => time(),
                         'SCRIPT_FILENAME' => $script_filename,
                         'SCRIPT_NAME'     => $script_name
                     ));
@@ -416,6 +419,7 @@ class BhoaCommand extends \Hoa\Console\Command\Generic {
                     $headers = array_merge($_headers, array(
                         'REQUEST_METHOD'  => 'POST',
                         'REQUEST_URI'     => DS . $url,
+                        'REQUEST_TIME'    => time(),
                         'SCRIPT_FILENAME' => $script_filename,
                         'SCRIPT_NAME'     => $script_name,
                         'CONTENT_TYPE'    => 'application/x-www-form-urlencoded',
@@ -494,7 +498,7 @@ class BhoaCommand extends \Hoa\Console\Command\Generic {
             return;
         }
 
-        $l = max($l, mb_strlen($message) + 1);
+        $l = max($l, strlen($message) + 1);
 
         cout(
             str_pad($message, $l, ' ', STR_PAD_RIGHT),
