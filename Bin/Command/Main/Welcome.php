@@ -194,6 +194,21 @@ class WelcomeCommand extends \Hoa\Console\Command\Generic {
                 'Start the interpreter for Praspel code.',
             ),
 
+            // Worker.
+            array('Worker'),
+            array(
+                '    ' . parent::stylize('start', 'command'),
+                'Start a shared worker.'
+            ),
+            array(
+                '    ' . parent::stylize('stop', 'command'),
+                'Stop a shared worker.'
+            ),
+            array(
+                '    ' . parent::stylize('list', 'command'),
+                'List all shared workers.'
+            ),
+
             // XYL.
             array('XYL'),
             array(
