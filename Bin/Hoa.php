@@ -49,7 +49,7 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'Core.link.php';
 /**
  * Add some components the the hoa://'s protocol.
  */
-\Hoa\Core::getInstance()->setParameters(array(
+\Hoa\Core::getInstance()->getParameters()->setParameters(array(
     'root.data'         => dirname(__DIR__),
     'protocol.Data/Bin' => '(:%protocol.Data:)' . 'Bin' . DS
 ));
