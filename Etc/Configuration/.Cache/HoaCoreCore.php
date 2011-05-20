@@ -7,14 +7,14 @@
 return array (
   'keywords' => 
   array (
-    'root.ofFrameworkDirectory' => NULL,
+    'hoa' => NULL,
+    'cwd' => NULL,
   ),
   'parameters' => 
   array (
-    'root' => '(:root.ofFrameworkDirectory:)',
-    'root.framework' => '(:%root:)',
-    'root.data' => '(:%root:h:)/Data',
-    'root.application' => '(:%root.data:)/../Application',
+    'root.framework' => '(:hoa:)',
+    'root.data' => '(:%root.application:h:)/Data',
+    'root.application' => '(:cwd:h:)',
     'framework.core' => '(:%root.framework:)/Core',
     'framework.library' => '(:%root.framework:)/Library',
     'framework.module' => '(:%root.framework:)/Module',
