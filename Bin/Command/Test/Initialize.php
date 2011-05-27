@@ -116,8 +116,8 @@ class InitializeCommand extends \Hoa\Console\Command\Generic {
 
             $test = new \Hoa\Test();
             $test->initialize($directory);
-            $revision = $test->getFormattedParameter('repository') .
-                        $test->getFormattedParameter('revision');
+            $revision = $test->getParameters()->getFormattedParameter('repository') .
+                        $test->getParameters()->getFormattedParameter('revision');
         }
         catch ( \Hoa\Test\Exception $e ) {
 

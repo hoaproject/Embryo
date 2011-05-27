@@ -98,7 +98,7 @@ class RemoveCommand extends \Hoa\Console\Command\Generic {
 
         $repository = null;
         $test       = new \Hoa\Test();
-        $repos      = $test->getFormattedParameter('repository');
+        $repos      = $test->getParameters()->getFormattedParameter('repository');
         $finder     = new \Hoa\File\Finder(
             $repos,
             \Hoa\File\Finder::LIST_DIRECTORY,

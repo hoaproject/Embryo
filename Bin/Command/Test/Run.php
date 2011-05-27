@@ -231,7 +231,7 @@ class RunCommand extends \Hoa\Console\Command\Generic {
         $sampler    = true;
 
         $test       = new \Hoa\Test();
-        $repos      = $test->getFormattedParameter('repository');
+        $repos      = $test->getParameters()->getFormattedParameter('repository');
         $finder     = new \Hoa\File\Finder(
             $repos,
             \Hoa\File\Finder::LIST_DIRECTORY,
@@ -291,12 +291,12 @@ class RunCommand extends \Hoa\Console\Command\Generic {
             throw new \Hoa\Console\Command\Exception(
                 'Repository %s does not exist.', 0, $repository);
 
-        $test->setParameter('revision', $revision . DS);
+        $test->getParameters()->setParameter('revision', $revision . DS);
 
         if(null === $file)
             return $this->usage();
 
-        $instrumented = $test->getFormattedParameter('instrumented');
+        $instrumented = $test->getParameters()->getFormattedParameter('instrumented');
 
         if(!file_exists($instrumented . $file))
             throw new \Hoa\Console\Command\Exception(
