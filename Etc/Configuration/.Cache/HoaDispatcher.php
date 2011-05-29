@@ -13,10 +13,8 @@ return array (
   ),
   'parameters' => 
   array (
-    'synchronous.file' => 'hoa://Application/Controller/(:controller:U:).php',
-    'synchronous.controller' => '(:controller:U:)Controller',
+    'synchronous.controller' => 'Application\Controller\(:controller:U:)',
     'synchronous.action' => '(:action:U:)Action',
-    'asynchronous.file' => '(:%synchronous.file:)',
     'asynchronous.controller' => '(:%synchronous.controller:)',
     'asynchronous.action' => '(:%synchronous.action:)Async',
   ),

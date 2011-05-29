@@ -38,5 +38,6 @@ return array (
     'protocol.Library' => '(:%framework.library:)/',
     'namespace.prefix.Hoa' => '(:%framework.library:)',
     'namespace.prefix.Hoathis' => '(:%data.module:);(:%framework.module:)',
+    'namespace.prefix.Application' => '(:%root.application:)',
   ),
 );
