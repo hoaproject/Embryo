@@ -47,24 +47,14 @@ namespace {
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'Core.link.php';
 
 /**
- * Add some components the the hoa://'s protocol.
+ * Deleguate hoa://Bin/Hoa.php to configure this tools.
  */
-\Hoa\Core::getInstance()->initialize(array(
-    'root.data'        => dirname(__DIR__),
-    'root.application' => dirname(dirname(__DIR__)) . DS . 'Application'
-));
+define('HOA_DATA',        dirname(__DIR__));
+define('HOA_APPLICATION', dirname(dirname(__DIR__)) . DS . 'Application');
 
 /**
- * \Hoa\Console
+ * Call the real Hoa.php ;-).
  */
-from('Hoa')
--> import('Console.~');
-
-/**
- * Here we go …
- */
-\Hoa\Console::getInstance()
-    ->importStyle('sheet')
-    ->dispatch();
+require_once 'hoa://Bin/Hoa.php';
 
 }
