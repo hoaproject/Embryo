@@ -212,7 +212,7 @@ catch ( Hoa\Core\Exception\Idle $e ) {
 
 
 $jsoni = file_get_contents($json);
-$jhoa  = '("root.framework"\s*:\s*)"(.*?)(?<!\\\)"';
+$jhoa  = '("root.hoa"\s*:\s*)"(.*?)(?<!\\\)"';
 check(
     'Check if the configuration file is not corrupted' . "\n",
     0 !== preg_match('`' . $jhoa . '`s', $jsoni)
@@ -229,7 +229,7 @@ check(
 );
 
 $cachei = file_get_contents($cache);
-$choa  = '(\'root.framework\'\s*=>\s*)\'(.*?)(?<!\\\)\'';
+$choa  = '(\'root.hoa\'\s*=>\s*)\'(.*?)(?<!\\\)\'';
 
 check(
     'Check if the configuration cache file is not corrupted' . "\n",

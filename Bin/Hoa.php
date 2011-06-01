@@ -44,7 +44,7 @@ namespace {
 /**
  * \Hoa\Core
  */
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'Core.link.php';
+require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'Core.link.php';
 
 /**
  * Deleguate hoa://Bin/Hoa.php to configure this tools.
@@ -55,6 +55,6 @@ define('HOA_APPLICATION', dirname(dirname(__DIR__)) . DS . 'Application');
 /**
  * Call the real Hoa.php ;-).
  */
-require_once 'hoa://Bin/Hoa.php';
+require 'hoa://Bin/Hoa.php';
 
 }
