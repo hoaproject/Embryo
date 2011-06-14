@@ -103,7 +103,7 @@ _define('STDERR', fopen('php://stderr', 'wb'));
 _define('DS',     DIRECTORY_SEPARATOR);
 
 cout('** Where is Hoa **' . "\n\n");
-cout('Ready to redefine the path to the framework?' . "\n");
+cout('Ready to redefine the path to Hoa?' . "\n");
 cout('We need to redefine it in:' . "\n" .
      '  • the Core.link.php file;' . "\n" .
      '  • the configuration file;' . "\n" .
