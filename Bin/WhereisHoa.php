@@ -119,7 +119,7 @@ if(false === $go) {
 }
 
 $whereis = cin("\n" . 'A very simple question: where is Hoa so?' .
-               "\n" . '> ') . DS . 'Hoa' . DS . 'Core' . DS . 'Core.php';
+               "\n" . '> ') . DS . 'Core' . DS . 'Core.php';
 
 cout("\n" . 'Assuming ' . $whereis . '.' . "\n\n");
 
@@ -221,11 +221,7 @@ check(
     'Redefine the configuration file' . "\n",
     ($jsono = preg_replace(
         '`' . $jhoa . '`s',
-        '\1"' . str_replace(
-            '"',
-            '\"',
-            dirname(dirname(dirname($whereis)))
-        ) . '"',
+        '\1"' . str_replace('"', '\"', dirname(dirname($whereis))) . '"',
         $jsoni,
         1
     )) &&
@@ -243,11 +239,7 @@ check(
     'Redefine the configuration cache file' . "\n",
     ($cacheo = preg_replace(
         '`' . $choa . '`s',
-        '\1\'' . str_replace(
-            '\'',
-            '\\\'',
-            dirname(dirname(dirname($whereis)))
-        ) . '\'',
+        '\1\'' . str_replace('\'', '\\\'', dirname(dirname($whereis))) . '\'',
         $cachei,
         1
     )) &&
