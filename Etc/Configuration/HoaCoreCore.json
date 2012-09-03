@@ -11,11 +11,10 @@
      * Parameters.
      */
     "parameters": {
+        "root.hoa"                       : "(:root:)",
         "root.application"               : "(:cwd:h:)",
         "root.data"                      : "(:%root.application:h:)/Data",
-        "root.hoa"                       : "(:root:)",
 
-        "hoa.bin"                        : "(:%root.hoa:)/Core/Bin",
         "hoa.core"                       : "(:%root.hoa:)/Core",
         "hoa.library"                    : "(:%root.hoa:)/Library",
         "hoa.module"                     : "(:%root.hoa:)/Module",
@@ -39,9 +38,7 @@
         "protocol.Data/Variable/Run"     : "Run/",
         "protocol.Data/Variable/Test"    : "Test/",
 
-        "namespace.prefix"               : "(:%protocol.Data:)Library/;(:%root.hoa:)/",
-        "namespace.prefix.Hoa"           : "(:%hoa.library:)",
-        "namespace.prefix.Hoathis"       : "(:%data.module:);(:%hoa.module:)/"
-        "namespace.prefix.Application"   : "(:%root.application:)"
+        "namespace.prefix.*"             : "(:%protocol.Data:)Library/;(:%root.hoa:)/",
+        "namespace.prefix.Application"   : "(:%root.application:)/",
     }
 }
