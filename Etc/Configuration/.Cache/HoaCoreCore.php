@@ -21,8 +21,7 @@ return array (
     'protocol.Data/Etc' => 'Etc/',
     'protocol.Data/Etc/Configuration' => 'Configuration/',
     'protocol.Data/Etc/Locale' => 'Locale/',
-    'protocol.Data/Library' => 'Library/Hoathis/;' .
-                               'Library/Hoa/',
+    'protocol.Data/Library' => 'Library/Hoathis/;Library/Hoa/',
     'protocol.Data/Lost+found' => 'Lost+found/',
     'protocol.Data/Temporary' => 'Temporary/',
     'protocol.Data/Variable' => 'Variable/',
@@ -32,10 +31,7 @@ return array (
     'protocol.Data/Variable/Private' => 'Private/',
     'protocol.Data/Variable/Run' => 'Run/',
     'protocol.Data/Variable/Test' => 'Test/',
-    'protocol.Library' => '(:%protocol.Data:)Library/Hoathis/;' .
-                          '(:%protocol.Data:)Library/Hoa/;' .
-                          '(:%root.hoa:)/Hoathis/;' .
-                          '(:%root.hoa:)/Hoa/',
+    'protocol.Library' => '(:%protocol.Data:)Library/Hoathis/;(:%protocol.Data:)Library/Hoa/;(:%root.hoa:)/Hoathis/;(:%root.hoa:)/Hoa/'
     'namespace.prefix.*' => '(:%protocol.Data:)Library/;(:%root.hoa:)/',
     'namespace.prefix.Application' => '(:%root.application:h:)/',
   ),
