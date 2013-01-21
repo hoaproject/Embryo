@@ -109,17 +109,31 @@ cout('We need to redefine it in:' . "\n" .
      '  • the configuration file;' . "\n" .
      '  • the configuration cache file.' . "\n");
 
-$go = cinq("\n" . 'There we go [y/n]? ');
 
-if(false === $go) {
-
-    cout('Ok, bye bye!' . "\n");
-
-    exit;
+$silent = false;
+$whereis = null;
+if (!empty($argv[1])) {
+    $silent = true;
+    $whereis = $argv[1];
 }
 
-$whereis = cin("\n" . 'A very simple question: where is Hoa so?' .
-               "\n" . '> ') . DS . 'Core' . DS . 'Core.php';
+
+$go = cinq("\n" . 'There we go [y/n]? ');
+if ($silent === false) {
+   if(false === $go) {
+
+       cout('Ok, bye bye!' . "\n");
+
+       exit;
+   }
+
+   $whereis = cin("\n" . 'A very simple question: where is Hoa so?' .
+                  "\n" . '> ') . DS . 'Core' . DS . 'Core.php';
+
+}
+else {
+    $whereis .= DS . 'Core' . DS . 'Core.php';
+}
 
 cout("\n" . 'Assuming ' . $whereis . '.' . "\n\n");
 
@@ -153,11 +167,13 @@ check(
 
 $goo = cinq("\n" . 'Are you to continue [y/n]? ');
 
-if(false === $goo) {
+if ($silent === false) {
+    if(false === $goo) {
 
-    cout('Ok, bye bye!' . "\n");
-
-    exit;
+       cout('Ok, bye bye!' . "\n");
+ 
+       exit;
+    }
 }
 
 cout("\n");
