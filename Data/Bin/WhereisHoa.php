@@ -36,6 +36,8 @@
 
 namespace {
 
+define('VERBOSE', !isset($_SERVER['argv'][1]));
+
 /**
  * @author     Ivan Enderlin <ivan.enderlin@hoa-project.net>
  * @copyright  Copyright © 2007-2013 Ivan Enderlin.
@@ -77,19 +79,27 @@ function cinq ( $out = null ) {
 
 function cout ( $out ) {
 
+    if(false === VERBOSE)
+        return 0;
+
     return fwrite(STDOUT, $out);
 }
 
-function check ( $out, $test, $die = true ) {
+function cerr ( $out ) {
+
+    return fwrite(STDERR, $out);
+}
+
+function check ( $out, $test, $die = 1 ) {
 
     if(false === $test) {
 
-        cout('✖  ' . $out);
+        cerr('✖  ' . $out);
 
-        if(true === $die)
-            exit;
-        else
-            return;
+        if(false !== $die)
+            exit($die);
+
+        return;
     }
 
     cout('✔  ' . $out);
@@ -109,33 +119,26 @@ cout('We need to redefine it in:' . "\n" .
      '  • the configuration file;' . "\n" .
      '  • the configuration cache file.' . "\n");
 
+$tail = DS . 'Core' . DS . 'Core.php';
 
-$silent = false;
-$whereis = null;
-if (!empty($argv[1])) {
-    $silent = true;
-    $whereis = $argv[1];
+if(true === VERBOSE) {
+
+    $go = cinq("\n" . 'There we go [y/n]? ');
+
+    if(false === $go) {
+
+        cout('Ok, bye bye!' . "\n");
+
+        exit;
+    }
+
+    $whereis = cin("\n" . 'A very simple question: where is Hoa so?' .
+                   "\n" . '> ') . $tail;
+
+    cout("\n" . 'Assuming ' . $whereis . '.' . "\n\n");
 }
-
-
-$go = cinq("\n" . 'There we go [y/n]? ');
-if ($silent === false) {
-   if(false === $go) {
-
-       cout('Ok, bye bye!' . "\n");
-
-       exit;
-   }
-
-   $whereis = cin("\n" . 'A very simple question: where is Hoa so?' .
-                  "\n" . '> ') . DS . 'Core' . DS . 'Core.php';
-
-}
-else {
-    $whereis .= DS . 'Core' . DS . 'Core.php';
-}
-
-cout("\n" . 'Assuming ' . $whereis . '.' . "\n\n");
+else
+    $whereis = $_SERVER['argv'][1] . $tail;
 
 check(
     'Check if the given file exists' . "\n",
@@ -165,9 +168,10 @@ check(
                         'HoaCoreCore.php')
 );
 
-$goo = cinq("\n" . 'Are you to continue [y/n]? ');
+if(true === VERBOSE) {
 
-if ($silent === false) {
+    $goo = cinq("\n" . 'Are you sure to continue [y/n]? ');
+
     if(false === $goo) {
 
        cout('Ok, bye bye!' . "\n");
@@ -198,17 +202,7 @@ check(
     unlink($link)
 );
 
-try {
-
-    if(true !== function_exists('symlink'))
-        throw new Hoa\Core\Exception\Idle('** goto-like **');
-
-    check(
-        'Redefine the Core.link.php symbolic link.' . "\n",
-        symlink($whereis, $link)
-    );
-}
-catch ( Hoa\Core\Exception\Idle $e ) {
+if(true !== function_exists('symlink')) {
 
     check(
         'Redefine the Core.link.php symbolic link.' . "\n",
@@ -225,7 +219,11 @@ catch ( Hoa\Core\Exception\Idle $e ) {
         )
     );
 }
-
+else
+    check(
+        'Redefine the Core.link.php symbolic link.' . "\n",
+        symlink($whereis, $link)
+    );
 
 $jsoni = file_get_contents($json);
 $jhoa  = '("root.hoa"\s*:\s*)"(.*?)(?<!\\\)"';
@@ -267,5 +265,7 @@ cout('\o/' . "\n");
 cout('Path to Hoa is redefined!' . "\n");
 cout('(You may delete backups (*.orig) after ' .
      'beeing sure that all works fine).' . "\n");
+
+exit(0);
 
 }
